@@ -16,15 +16,15 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(hello-oboe LANGUAGES CXX)
 
-# add oboe pre-release lib hosted at https://maven.google.com/web/index.html
-# under com.google.oboe:oboe. For documentation about oboe pre-built lib, refer to
+# 添加托管在 https://maven.google.com/web/index.html 的 oboe 预发布库
+# 位于 com.google.oboe:oboe 下。有关 oboe 预构建库的文档，请参考
 # https://github.com/google/oboe/blob/master/docs/GettingStarted.md#option-1-using-pre-built-binaries-and-headers
 find_package(oboe REQUIRED CONFIG)
 
-# build application with the oboe lib
+# 使用 oboe 库构建应用程序
 add_library(${PROJECT_NAME} SHARED  hello-oboe.cpp)
 target_link_libraries(${PROJECT_NAME} oboe::oboe android log)
 
-# Enable optimization flags: if having problems with source level debugging,
-# disable -Ofast ( and debug ), re-enable after done debugging.
+# 启用优化标志：如果在源码级调试时遇到问题，
+# 请禁用 -Ofast（并进行调试），调试完成后重新启用。
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Werror "$<$<CONFIG:RELEASE>:-Ofast>")
